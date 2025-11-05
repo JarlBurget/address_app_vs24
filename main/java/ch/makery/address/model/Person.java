@@ -12,6 +12,8 @@ public class Person {
     private final StringProperty street;
     private final IntegerProperty postalCode;
     private final StringProperty city;
+    private final StringProperty phone;
+    private final StringProperty email;
     private final ObjectProperty<LocalDate> birthday;
 
     public Person() {
@@ -26,6 +28,10 @@ public class Person {
         this.street = new SimpleStringProperty("some street");
         this.postalCode = new SimpleIntegerProperty(1234);
         this.city = new SimpleStringProperty("some city");
+
+        this.phone = new SimpleStringProperty("+372 12345678");
+        this.email = new SimpleStringProperty("somebody@gmail.com" );
+
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
 
@@ -88,6 +94,25 @@ public class Person {
     public StringProperty cityProperty() {
         return city;
     }
+
+
+    public StringProperty phoneProperty() {
+        return phone;
+    }
+
+    public String getPhone() { return phone.get(); }
+
+    public void setPhone(String phone) { this.phone.set(phone); }
+
+    public  StringProperty emailProperty() {
+        return email;
+    }
+
+    public String getEmail() { return email.get(); }
+
+    public void setEmail(String email) { this.email.set(email); }
+
+
 
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getBirthday() {

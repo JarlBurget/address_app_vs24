@@ -19,6 +19,12 @@ public class PersonEditDialogController {
     private TextField postalCodeField;
     @FXML
     private TextField cityField;
+
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField emailField;
+
     @FXML
     private TextField birthdayField;
 
@@ -59,6 +65,9 @@ public class PersonEditDialogController {
         cityField.setText(person.getCity());
         birthdayField.setText(DateUtil.format(person.getBirthday()));
         birthdayField.setPromptText("dd.mm.yyyy");
+
+        phoneField.setText(person.getPhone());
+        emailField.setText(person.getEmail());
     }
 
     /**
@@ -82,6 +91,9 @@ public class PersonEditDialogController {
             person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
             person.setCity(cityField.getText());
             person.setBirthday(DateUtil.parse(birthdayField.getText()));
+
+            person.setPhone(phoneField.getText());
+            person.setEmail(emailField.getText());
 
             okClicked = true;
             dialogStage.close();
@@ -112,6 +124,22 @@ public class PersonEditDialogController {
         }
         if (streetField.getText() == null || streetField.getText().length() == 0) {
             errorMessage += "No valid street!\n";
+        }
+
+        if (phoneField.getText() == null || postalCodeField.getText().length() == 0) {
+            errorMessage += "No valid phone!n";
+        } else if (phoneField.getText().length() < 8) {
+            errorMessage += "Invalid phone number!";
+        } else if(!phoneField.getText().matches("^(?:\\+372\\s?\\d{7,8}|\\d{7,8})$")){
+            errorMessage += "Invalid phone code number!";
+        }
+
+        if (emailField.getText() == null || postalCodeField.getText().length() == 0) {
+            errorMessage += "No valid email!n";
+        } else if (emailField.getText().length() < 8) {
+            errorMessage += "Invalid email!";
+        } else if(!emailField.getText().matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")){
+            errorMessage += "Invalid email pattern!";
         }
 
         if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {

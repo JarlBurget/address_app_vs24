@@ -29,6 +29,12 @@ public class PersonOverviewController {
     private Label postalCodeLabel;
     @FXML
     private Label cityLabel;
+
+    @FXML
+    private Label phoneLabel;
+    @FXML
+    private Label emailLabel;
+
     @FXML
     private Label birthdayLabel;
 
@@ -82,6 +88,10 @@ public class PersonOverviewController {
             streetLabel.setText(person.getStreet());
             postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
             cityLabel.setText(person.getCity());
+
+            phoneLabel.setText(person.getPhone());
+            emailLabel.setText(person.getEmail());
+
             birthdayLabel.setText(DateUtil.format(person.getBirthday()));
         } else {
             // Person is null, remove all the text.
@@ -90,6 +100,10 @@ public class PersonOverviewController {
             streetLabel.setText("");
             postalCodeLabel.setText("");
             cityLabel.setText("");
+
+            phoneLabel.setText("");
+            emailLabel.setText("");
+
             birthdayLabel.setText("");
         }
     }
