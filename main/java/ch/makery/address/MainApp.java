@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 
@@ -136,6 +136,9 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AddressApp");
+
+        // Set the application icon.
+        this.primaryStage.getIcons().add(new Image(getClass().getResource("images/address_book_icon.png").toExternalForm()));
 
         this.initRootLayout();
         this.showPersonOverview();
