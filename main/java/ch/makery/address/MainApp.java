@@ -1,8 +1,10 @@
 package ch.makery.address;
 
 import ch.makery.address.model.Person;
+import ch.makery.address.util.FileUtil;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
+import ch.makery.address.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,12 +16,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+
+    private FileUtil fileUtil = new FileUtil();
 
     /**
      * The data as an observable list of Persons.
@@ -63,9 +69,23 @@ public class MainApp extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(this.rootLayout);
             this.primaryStage.setScene(scene);
+
+            // Give the controller access to the main app.
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+
             this.primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        // try to load last opened file
+        File file = fileUtil.getPersonFilePath();
+        if (file != null) {
+            fileUtil.loadPersonDataFromFile(file, this.getPersonData());
+            this.primaryStage.setTitle("AddressApp - " + file.getName());
+        } else {
+            this.primaryStage.setTitle("AddressApp");
         }
     }
 
@@ -85,8 +105,19 @@ public class MainApp extends Application {
             // Give the controller access to the main app.
             PersonOverviewController controller = loader.getController();
             controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    // ainult salvestab/loeb eelistuse
+    public void setPersonFilePath(File file) {
+        fileUtil.setPersonFilePath(file);
+        if (file != null) {
+            this.primaryStage.setTitle("AddressApp - " + file.getName());
+        } else {
+            this.primaryStage.setTitle("AddressApp");
         }
     }
 
@@ -142,8 +173,6 @@ public class MainApp extends Application {
 
         this.initRootLayout();
         this.showPersonOverview();
-
-        System.out.println(this.getPersonData());
     }
 
     public static void main(String[] args) {
