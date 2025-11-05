@@ -1,6 +1,7 @@
 package ch.makery.address;
 
 import ch.makery.address.model.Person;
+import ch.makery.address.repository.PersonRepository;
 import ch.makery.address.util.FileUtil;
 import ch.makery.address.view.*;
 import javafx.application.Application;
@@ -25,33 +26,14 @@ public class MainApp extends Application {
 
     private FileUtil fileUtil = new FileUtil();
 
-    /**
-     * The data as an observable list of Persons.
-     */
-    private ObservableList<Person> personData = FXCollections.observableArrayList();
-
-    /**
-     * Constructor
-     */
-    public MainApp() {
-        // Add some sample data
-        this.personData.add(new Person("Hans", "Muster"));
-        this.personData.add(new Person("Ruth", "Mueller"));
-        this.personData.add(new Person("Heinz", "Kurz"));
-        this.personData.add(new Person("Cornelia", "Meier"));
-        this.personData.add(new Person("Werner", "Meyer"));
-        this.personData.add(new Person("Lydia", "Kunz"));
-        this.personData.add(new Person("Anna", "Best"));
-        this.personData.add(new Person("Stefan", "Meier"));
-        this.personData.add(new Person("Martin", "Mueller"));
-    }
+    private PersonRepository personRepository = new PersonRepository();
 
     /**
      * Returns the data as an observable list of Persons.
      * @return
      */
-    public ObservableList<Person> getPersonData() {
-        return this.personData;
+    public PersonRepository getPersonRepository() {
+        return personRepository;
     }
 
     /**
@@ -80,7 +62,7 @@ public class MainApp extends Application {
         // try to load last opened file
         File file = fileUtil.getPersonFilePath();
         if (file != null) {
-            fileUtil.loadPersonDataFromFile(file, this.getPersonData());
+            fileUtil.loadPersonDataFromFile(file, this.personRepository);
             this.primaryStage.setTitle("AddressApp - " + file.getName());
         } else {
             this.primaryStage.setTitle("AddressApp");
@@ -179,7 +161,7 @@ public class MainApp extends Application {
 
             // Set the persons into the controller.
             BirthdayStatisticsController controller = loader.getController();
-            controller.setPersonData(personData);
+            controller.setPersonData(this.personRepository.getPersons());
 
             dialogStage.show();
 
@@ -206,7 +188,7 @@ public class MainApp extends Application {
 
             // Set the persons into the controller.
             YearStatisticsController controller = loader.getController();
-            controller.setPersonData(personData);
+            controller.setPersonData(this.personRepository.getPersons());
 
             dialogStage.show();
 

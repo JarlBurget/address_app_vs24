@@ -71,7 +71,7 @@ public class PersonOverviewController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        personTable.setItems(mainApp.getPersonData());
+        personTable.setItems(mainApp.getPersonRepository().getPersons());
     }
 
     /**
@@ -159,7 +159,7 @@ public class PersonOverviewController {
         Person tempPerson = new Person();
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
         if (okClicked) {
-            mainApp.getPersonData().add(tempPerson);
+            mainApp.getPersonRepository().add(tempPerson);
         }
     }
 }

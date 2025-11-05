@@ -3,6 +3,7 @@ package ch.makery.address.util;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
 import ch.makery.address.model.PersonListWrapper;
+import ch.makery.address.repository.PersonRepository;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
@@ -11,7 +12,8 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 public class FileUtil { ;
@@ -56,10 +58,11 @@ public class FileUtil { ;
      *
      * @param file
      */
-    public void loadPersonDataFromFile(File file, ObservableList<Person> personData) {
+    public void loadPersonDataFromFile(File file, PersonRepository repository) {
         try {
             if (file == null || !file.isFile() || file.length() == 0) {
-                personData.clear();
+                // personData.clear();
+                repository.setPersons(Collections.emptyList());
                 setPersonFilePath(null);
                 System.out.println("No data" +  "File is empty" +  "Loaded empty dataset.");
                 return;
@@ -72,13 +75,19 @@ public class FileUtil { ;
             // Reading XML from the file and unmarshalling.
             PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
 
-            personData.clear();
-            personData.addAll(wrapper.getPersons());
+            List<Person> loaded = (wrapper != null && wrapper.getPersons() != null)
+                    ? wrapper.getPersons()
+                    : Collections.emptyList();
+
+            repository.setPersons(loaded);
 
             // Save the file path to the registry.
             setPersonFilePath(file);
 
+            System.out.println("[LOAD] Laetud: " + loaded.size() + " (" + file.getAbsolutePath() + ")");
+
         } catch (Exception e) { // catches ANY exception
+            e.printStackTrace(); // jäta arenduse ajaks alles
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not load data");
