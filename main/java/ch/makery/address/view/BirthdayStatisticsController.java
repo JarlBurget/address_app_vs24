@@ -21,7 +21,7 @@ public class BirthdayStatisticsController {
     @FXML
     private CategoryAxis xAxis;
 
-    private ObservableList<String> monthNames = FXCollections.observableArrayList();
+    private final ObservableList<String> monthNames = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -38,11 +38,6 @@ public class BirthdayStatisticsController {
         xAxis.setCategories(monthNames);
     }
 
-    /**
-     * Sets the persons to show the statistics for.
-     *
-     * @param persons
-     */
     public void setPersonData(List<Person> persons) {
         // Count the number of people having their birthday in a specific month.
         int[] monthCounter = new int[12];

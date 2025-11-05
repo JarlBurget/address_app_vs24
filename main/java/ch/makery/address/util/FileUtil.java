@@ -9,24 +9,13 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-public class FileUtil { ;
-    Stage primaryStage;
-    MainApp mainApp;
-
-    /**
-     * Returns the person file preference, i.e. the file that was last opened.
-     * The preference is read from the OS specific registry. If no such
-     * preference can be found, null is returned.
-     *
-     * @return
-     */
+public class FileUtil {
     public File getPersonFilePath() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         String filePath = prefs.get("filePath", null);
@@ -52,12 +41,6 @@ public class FileUtil { ;
         }
     }
 
-    /**
-     * Loads person data from the specified file. The current person data will
-     * be replaced.
-     *
-     * @param file
-     */
     public void loadPersonDataFromFile(File file, PersonRepository repository) {
         try {
             if (file == null || !file.isFile() || file.length() == 0) {
@@ -97,11 +80,6 @@ public class FileUtil { ;
         }
     }
 
-    /**
-     * Saves the current person data to the specified file.
-     *
-     * @param file
-     */
     public void savePersonDataToFile(File file, ObservableList<Person> personData) {
         try {
             JAXBContext context = JAXBContext

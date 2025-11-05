@@ -14,13 +14,9 @@ public class MainApp extends Application {
     private Stage primaryStage;
 
     private ViewManager viewManager = new ViewManager(this);
-    private FileUtil fileUtil = new FileUtil();
-    private PersonRepository personRepository = new PersonRepository();
+    private final FileUtil fileUtil = new FileUtil();
+    private final PersonRepository personRepository = new PersonRepository();
 
-    /**
-     * Returns the data as an observable list of Persons.
-     * @return
-     */
     public PersonRepository getPersonRepository() {
         return this.personRepository;
     }

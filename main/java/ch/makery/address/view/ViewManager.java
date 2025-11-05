@@ -9,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 public class ViewManager {
@@ -28,7 +27,7 @@ public class ViewManager {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
-            this.rootLayout = (BorderPane) loader.load();
+            this.rootLayout = loader.load();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(this.rootLayout);
@@ -52,7 +51,7 @@ public class ViewManager {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
+            AnchorPane personOverview = loader.load();
 
             // Set person overview into the center of root layout.
             this.rootLayout.setCenter(personOverview);
@@ -79,7 +78,7 @@ public class ViewManager {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
@@ -116,7 +115,7 @@ public class ViewManager {
             // Load the fxml file and create a new stage for the popup.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/BirthdayStatistics.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Birthday Statistics");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -143,7 +142,7 @@ public class ViewManager {
             // Load the fxml file and create a new stage for the popup.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/YearStatistics.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Years Statistics");
             dialogStage.initModality(Modality.WINDOW_MODAL);
