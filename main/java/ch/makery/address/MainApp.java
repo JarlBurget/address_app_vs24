@@ -107,7 +107,11 @@ public class MainApp extends Application {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Person");
+            if(person.getFirstName() == null && person.getLastName() == null) {
+                dialogStage.setTitle("Add New Person");
+            } else {
+                dialogStage.setTitle("Edit Person");
+            }
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
