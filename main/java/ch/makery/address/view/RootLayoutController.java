@@ -12,7 +12,6 @@ public class RootLayoutController {
 
     // Reference to the main application
     private MainApp mainApp;
-    private FileUtil fileUtil = new FileUtil();
 
     /**
      * Is called by the main application to give a reference back to itself.
@@ -28,8 +27,8 @@ public class RootLayoutController {
      */
     @FXML
     private void handleNew() {
-        mainApp.getPersonRepository().clear();
-        fileUtil.setPersonFilePath(null);
+        this.mainApp.getPersonRepository().clear();
+        this.mainApp.getFileUtil().setPersonFilePath(null);
     }
 
     /**
@@ -48,8 +47,8 @@ public class RootLayoutController {
         File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
         if (file != null) {
-            fileUtil.loadPersonDataFromFile(file, mainApp.getPersonRepository());
-            mainApp.setPersonFilePath(file);
+            this.mainApp.getFileUtil().loadPersonDataFromFile(file, mainApp.getPersonRepository());
+            this.mainApp.setPersonFilePath(file);
         }
     }
 
@@ -59,9 +58,9 @@ public class RootLayoutController {
      */
     @FXML
     private void handleSave() {
-        File personFile = fileUtil.getPersonFilePath();
+        File personFile = this.mainApp.getFileUtil().getPersonFilePath();
         if (personFile != null) {
-            fileUtil.savePersonDataToFile(personFile, mainApp.getPersonRepository().getPersons());
+            this.mainApp.getFileUtil().savePersonDataToFile(personFile, mainApp.getPersonRepository().getPersons());
             mainApp.setPersonFilePath(personFile);
         } else {
             handleSaveAs();
@@ -88,7 +87,7 @@ public class RootLayoutController {
             if (!file.getPath().endsWith(".xml")) {
                 file = new File(file.getPath() + ".xml");
             }
-            fileUtil.savePersonDataToFile(file, mainApp.getPersonRepository().getPersons());
+            this.mainApp.getFileUtil().savePersonDataToFile(file, mainApp.getPersonRepository().getPersons());
             mainApp.setPersonFilePath(file);
         }
     }
@@ -119,7 +118,7 @@ public class RootLayoutController {
      */
     @FXML
     private void handleShowBirthdayStatistics() {
-        mainApp.showBirthdayStatistics();
+        this.mainApp.getViewManager().showBirthdayStatistics();
     }
 
     /**
@@ -127,6 +126,6 @@ public class RootLayoutController {
      */
     @FXML
     private void handleShowYearStatistics() {
-        mainApp.showYearsStatistics();
+        this.mainApp.getViewManager().showYearsStatistics();
     }
 }

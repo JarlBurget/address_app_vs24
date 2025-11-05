@@ -6,6 +6,8 @@ module ch.makery.address {
     requires javafx.base;
 
     requires jakarta.xml.bind;
+    // requires ch.makery.address;
+    requires javafx.graphics;
     // JAXB peab nägema su mudeleid runtime'is
     opens ch.makery.address.model to jakarta.xml.bind, javafx.base;
 
