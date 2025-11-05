@@ -144,3 +144,61 @@
 .button:default:hover {
     -fx-background-color: derive(-fx-focus-color,30%);
 }
+
+/* --- Üldine: tee kõikide Scene’de (juure)taust mustaks --- */
+.root {
+    /* looked-up värvid, et oleks lihtne ümber lülitada */
+    -color-bg: #111111;      /* akna/Scene’i taust */
+    -color-plot: #2a2a2a;    /* graafiku plot-ala (helehall) */
+    /* Kui soovid plot-ala sama musta:
+       -color-plot: -color-bg; */
+
+    -fx-background-color: -color-bg;
+}
+
+/* Jäta alles sinu olemasolev .background klass – sobib ka lokaalseks kasutuseks */
+.background, .anchor-pane.background {
+    -fx-background-color: -color-bg;
+}
+
+/* --- Chart’i üldine taust/padding --- */
+.chart {
+    -fx-background-color: -color-bg;
+    -fx-background-insets: 0;
+    -fx-padding: 10;
+}
+
+/* --- Plot-ala värv (helehall või sama must, vt -color-plot ülal) --- */
+.chart-plot-background {
+    -fx-background-color: -color-plot;
+}
+
+/* --- Võrguliinid ja teljed tumedal teemal loetavaks --- */
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines {
+    -fx-stroke: #333333;
+}
+.axis {
+    -fx-tick-label-fill: #d8d8d8; /* telje jaotiste tekst */
+    -fx-font-size: 12pt;
+}
+.axis .axis-label {
+    -fx-text-fill: #d8d8d8;       /* telje pealkiri */
+}
+.chart-title {
+    -fx-text-fill: #ffffff;
+}
+.chart-legend .label {
+    -fx-text-fill: #d8d8d8;
+}
+
+.chart-legend-item-symbol {
+    -fx-background-insets: 0
+}
+
+/* Seeria 0 (oranž) legendisümbol ilma halli äärteta */
+.default-color0.chart-legend-item-symbol {
+    -fx-background-color: #ff8c00;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
