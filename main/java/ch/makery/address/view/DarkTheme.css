@@ -154,6 +154,7 @@
        -color-plot: -color-bg; */
 
     -fx-background-color: -color-bg;
+    -color-plot: -color-bg;
 }
 
 /* Jäta alles sinu olemasolev .background klass – sobib ka lokaalseks kasutuseks */
@@ -201,4 +202,33 @@
     -fx-background-insets: 0;
     -fx-border-color: transparent;
     -fx-background-radius: 0;
+}
+
+/* PieChart konteiner must */
+.pie-chart {
+    -fx-background-color: -color-bg; /* -color-bg = #111111 sul juba defineeritud */
+}
+
+/* Sisuümbris */
+.pie-chart .chart-content {
+    -fx-background-color: -color-bg;
+    -fx-background-insets: 0;
+    -fx-padding: 10;
+}
+
+/* Plot-ala ka must (PieChartil võib see default olla läbipaistev, igaks juhuks määrame) */
+.pie-chart .chart-plot-background {
+    -fx-background-color: -color-bg;
+    -fx-background-insets: 0;
+}
+
+/* Legendi tekst heledaks */
+.pie-chart .chart-legend .label {
+    -fx-text-fill: #d8d8d8;
+}
+
+/* Viilude sildid (need on Text-noded klassiga chart-pie-label) */
+.chart-pie-label {
+    -fx-fill: #ffffff;      /* mitte -fx-text-fill; PieCharti sildid on Text, kasutab -fx-fill */
+    -fx-font-size: 12px;
 }

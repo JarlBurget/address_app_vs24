@@ -6,6 +6,7 @@ module ch.makery.address {
     requires javafx.base;
 
     requires jakarta.xml.bind;
+    requires ch.makery.address;
     opens ch.makery.address.model to jakarta.xml.bind;
 
     opens ch.makery.address.view to javafx.fxml;
