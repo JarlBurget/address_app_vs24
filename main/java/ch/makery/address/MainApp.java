@@ -1,70 +1,48 @@
-package ch.makery.address;
+package ch.makery.address.repository;
 
-import ch.makery.address.repository.PersonRepository;
-import ch.makery.address.util.FileUtil;
-import ch.makery.address.view.*;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import java.io.File;
+import ch.makery.address.model.Person;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.util.List;
 
-public class MainApp extends Application {
+public class PersonRepository {
 
-    private Stage primaryStage;
+    /**
+     * The data as an observable list of Persons.
+     */
+    private ObservableList<Person> persons = FXCollections.observableArrayList();
 
-    private ViewManager viewManager = new ViewManager(this);
-    private final FileUtil fileUtil = new FileUtil();
-    private final PersonRepository personRepository = new PersonRepository();
-
-    public PersonRepository getPersonRepository() {
-        return this.personRepository;
+    public PersonRepository() {
+        // Add some sample data
+        this.add(new Person("Hans", "Muster"));
+        this.add(new Person("Ruth", "Mueller"));
+        this.add(new Person("Heinz", "Kurz"));
+        this.add(new Person("Cornelia", "Meier"));
+        this.add(new Person("Werner", "Meyer"));
+        this.add(new Person("Lydia", "Kunz"));
+        this.add(new Person("Anna", "Best"));
+        this.add(new Person("Stefan", "Meier"));
+        this.add(new Person("Martin", "Mueller"));
     }
 
-    public ViewManager getViewManager() {
-        return this.viewManager;
+    public ObservableList<Person> getPersons() {
+        return this.persons;
     }
 
-    public FileUtil getFileUtil() {
-        return this.fileUtil;
+    public void setPersons(List<Person> persons) {
+        this.persons.setAll(persons == null ? List.of() : persons);
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
+    public void add(Person person) {
+        this.persons.add(person);
     }
 
-    // ainult salvestab/loeb eelistuse
-    public void setPersonFilePath(File file) {
-        fileUtil.setPersonFilePath(file);
-        if (file != null) {
-            this.primaryStage.setTitle("AddressApp - " + file.getName());
-        } else {
-            this.primaryStage.setTitle("AddressApp");
-        }
+    public void remove(Person person) {
+        this.persons.remove(person);
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
-        this.primaryStage.getIcons().add(new Image(getClass().getResource("images/address_book_icon.png").toExternalForm()));
-
-        this.viewManager = new ViewManager(this);
-
-        this.viewManager.initRootLayout();
-        this.viewManager.showPersonOverview();
-
-        // try to load last opened file
-        File file = fileUtil.getPersonFilePath();
-        if (file != null) {
-            fileUtil.loadPersonDataFromFile(file, this.personRepository);
-            this.primaryStage.setTitle("AddressApp - " + file.getName());
-        } else {
-            this.primaryStage.setTitle("AddressApp");
-        }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    public void clear() {
+        this.persons.clear();
     }
 }
